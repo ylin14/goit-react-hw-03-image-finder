@@ -22,18 +22,17 @@ class ImgFinder extends Component {
   };
 
   async componentDidUpdate(prevProp, prevState) {
-    const { q, page, images } = this.state;
+    const { q, page } = this.state;
 
-    if (q !== prevState.q || page > prevState.page) {
+    if(this.state.page !== prevState.page || this.state.query!== prevState.query) {
       this.setState({ isLoading: true });
       const { totalHits, hits } = await query(q, page);
-      // const res = totalHits/10
 
       try {
-        this.setState({
-          images: [...images, ...hits],
+        this.setState(prevState=>({
+          images: [...prevState.images, ...hits],
           totalPages: totalHits / 10,
-        });
+        }));
       } catch (error) {
         this.setState({ error: error.message });
       } finally {
@@ -45,6 +44,8 @@ class ImgFinder extends Component {
   setImages = ({ q }) => {
     this.setState({
       q,
+      images: [],
+      page: 1,
     });
   };
 

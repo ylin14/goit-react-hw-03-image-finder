@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 import s from './searchbar.module.css';
 
+
 class Searchbar extends Component {
   state = {
     q: '',
@@ -14,6 +15,7 @@ class Searchbar extends Component {
       [name]: value,
     });
   };
+
   getQuery = e => {
     e.preventDefault();
     const { onSubmit } = this.props;
