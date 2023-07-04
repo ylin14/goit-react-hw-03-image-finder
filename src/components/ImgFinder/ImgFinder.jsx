@@ -24,14 +24,14 @@ class ImgFinder extends Component {
   async componentDidUpdate(prevProp, prevState) {
     const { q, page } = this.state;
 
-    if(this.state.page !== prevState.page || this.state.query!== prevState.query) {
+    if(this.state.page !== prevState.page || this.state.q!== prevState.q) {
       this.setState({ isLoading: true });
       const { totalHits, hits } = await query(q, page);
 
       try {
         this.setState(prevState=>({
           images: [...prevState.images, ...hits],
-          totalPages: totalHits / 10,
+          totalPages: totalHits / 12,
         }));
       } catch (error) {
         this.setState({ error: error.message });
@@ -63,6 +63,7 @@ class ImgFinder extends Component {
   closeModal = () => {
     this.setState({
       isModalOpen: false,
+      modalImg: {}
     });
   };
 
@@ -86,7 +87,9 @@ class ImgFinder extends Component {
         )}
         {isLoading && <Loader />}
         {error && <p>Something went wrong: {error}</p>}
-        {totalPages > page && <Button text="Load More" onClick={loadMore} />}
+        {totalPages > page && !isLoading && images.length > 0 && (
+          <Button text="Load More" onClick={loadMore} />
+        )}
         {isModalOpen && (
           <Modal close={this.closeModal}>
             <img
