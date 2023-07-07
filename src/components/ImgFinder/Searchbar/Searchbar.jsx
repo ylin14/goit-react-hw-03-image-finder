@@ -18,9 +18,14 @@ class Searchbar extends Component {
 
   getQuery = e => {
     e.preventDefault();
+    const query = this.state.q;
+    if(!query.trim().length) {
+      return alert("Не можна зробити запит по пустій квері")
+    }
+
     const { onSubmit } = this.props;
 
-    onSubmit({ ...this.state });
+    onSubmit(query);
 
     this.setState({ q: '' });
   };

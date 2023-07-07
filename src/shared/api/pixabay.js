@@ -6,7 +6,8 @@ const instance = axios.create({
     key: '27144751-892a725032099e3eb90bcbf85',
     image_type: 'photo',
     orientation: 'horizontal',
-    per_page: 10,
+    safesearch: true,
+    per_page: 12,
   },
 });
 

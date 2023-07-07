@@ -41,7 +41,7 @@ class ImgFinder extends Component {
     }
   }
 
-  setImages = ({ q }) => {
+  setImages = ( q ) => {
     this.setState({
       q,
       images: [],
